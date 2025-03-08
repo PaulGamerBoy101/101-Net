@@ -1,13 +1,20 @@
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QLineEdit, QPushButton, QTabWidget
+import json
+import os
+from PySide6.QtCore import Qt, QUrl  # Import QUrl
+from PySide6.QtGui import QAction
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QLineEdit, QPushButton, QTabWidget, QMenu, QMenuBar
 from PySide6.QtWebEngineWidgets import QWebEngineView
+
 
 class WebBrowser(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Simple Web Browser")
+        self.setWindowTitle("Lime Green Web Browser")
         self.setGeometry(100, 100, 1200, 800)
+
+        # Initialize bookmarks
+        self.load_bookmarks()
 
         # Create main layout
         main_layout = QVBoxLayout()
@@ -60,6 +67,42 @@ class WebBrowser(QMainWindow):
         central_widget.setLayout(main_layout)
         self.setCentralWidget(central_widget)
 
+        # Menu bar setup
+        self.menu = QMenu("Menu", self)
+        self.bookmark_action = QAction("Bookmarks", self)
+        self.history_action = QAction("History", self)
+        self.settings_action = QAction("Settings", self)
+
+        # Connect menu actions
+        self.bookmark_action.triggered.connect(self.open_bookmarks_page)
+
+        self.menu.addAction(self.bookmark_action)
+        self.menu.addAction(self.history_action)
+        self.menu.addAction(self.settings_action)
+
+        self.hamburger_button.clicked.connect(self.show_menu)
+
+        # Apply QSS styles for buttons and url bar
+        self.setStyleSheet("""
+            QPushButton {
+                background-color: #39ff14;  /* Neon Green */
+                color: black;
+                border-radius: 15px;
+                padding: 10px;
+                font-size: 14px;
+            }
+            QLineEdit {
+                background-color: white;
+                border-radius: 15px;
+                padding: 10px;
+                font-size: 14px;
+                color: black;  /* Black text for URL bar */
+            }
+            QTabWidget {
+                background-color: #f5f5f5;
+            }
+        """)
+
     def load_url(self):
         """Load the URL typed in the URL bar."""
         url = self.url_bar.text()
@@ -102,6 +145,46 @@ class WebBrowser(QMainWindow):
         # Automatically focus the new tab
         self.url_bar.clear()  # Clear the URL bar when a new tab is opened
         new_tab.setUrl("https://www.example.com")  # You can set the home page URL here if needed
+
+    def show_menu(self):
+        """Display the menu when the hamburger button is clicked."""
+        self.menu.exec_(self.hamburger_button.mapToGlobal(self.hamburger_button.rect().bottomLeft()))
+
+    def open_bookmarks_page(self):
+        """Open a new tab with the bookmarks page."""
+        bookmarks_page = QWebEngineView()
+        
+        # Correctly handle file URL using QUrl
+        file_url = QUrl.fromLocalFile(os.path.abspath("bookmarks.html"))
+        bookmarks_page.setUrl(file_url)  # Set the file URL properly
+        self.tabs.addTab(bookmarks_page, "Bookmarks")
+        self.tabs.setCurrentWidget(bookmarks_page)
+
+    def load_bookmarks(self):
+        """Load bookmarks from bookmarks.json file."""
+        if os.path.exists("bookmarks.json"):
+            with open("bookmarks.json", "r") as f:
+                self.bookmarks = json.load(f)
+        else:
+            self.bookmarks = []
+
+    def save_bookmarks(self):
+        """Save bookmarks to bookmarks.json file."""
+        with open("bookmarks.json", "w") as f:
+            json.dump(self.bookmarks, f)
+
+    def toggle_bookmark(self):
+        """Add or remove the current URL from bookmarks."""
+        url = self.url_bar.text()
+        if url in self.bookmarks:
+            self.bookmarks.remove(url)
+            self.bookmark_button.setText("Bookmark")
+        else:
+            self.bookmarks.append(url)
+            self.bookmark_button.setText("Bookmarked")
+        
+        self.save_bookmarks()
+
 
 if __name__ == "__main__":
     app = QApplication([])
