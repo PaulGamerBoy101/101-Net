@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e5f9e5;
+            color: black;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            background-color: #80e080;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+        li:hover {
+            background-color: #66cc66;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bookmarks</h1>
+    <ul id="bookmark-list">
+        <!-- Bookmarks will be dynamically inserted here -->
+    </ul>
+
+    <script>
+        // Fetch bookmarks from the local bookmarks.json file
+        fetch("bookmarks.json")
+            .then(response => response.json())
+            .then(bookmarks => {
+                const bookmarkList = document.getElementById("bookmark-list");
+                bookmarks.forEach(bookmark => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = bookmark.url;
+
+                    // Open the bookmark in the current tab
+                    listItem.onclick = () => {
+                        window.location.href = bookmark.url; // This will load the bookmark in the same tab
+                    };
+
+                    bookmarkList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error loading bookmarks:', error));
+    </script>
+</body>
+</html>
