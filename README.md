@@ -3,13 +3,13 @@
 
 # Features
 
-## Implemented
+### Implemented
 
-## Partialy Implemented (See More Info About an Item in this Section by Visiting the Important Information Section)
+### Partialy Implemented (See More Info About an Item in this Section by Visiting the Important Information Section)
 
-## Not Implemented
+### Not Implemented
 
-## Screenshots
+### Screenshots
 
 # Important Information
 
