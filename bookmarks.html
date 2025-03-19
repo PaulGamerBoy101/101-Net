@@ -5,52 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookmarks</title>
     <style>
+        /* General styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #e5f9e5;
-            color: black;
-        }
-        ul {
-            list-style-type: none;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
-        li {
-            padding: 10px;
-            background-color: #80e080;
+
+        /* Header styling */
+        .header {
+            background-color: #1e1e1e;
+            color: #39ff14; /* Neon Green */
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #39ff14;
+        }
+
+        /* Container for the table */
+        .table-container {
+            width: 90%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e1e1e;
             border-radius: 10px;
-            margin-bottom: 5px;
+            overflow: hidden;
         }
-        li:hover {
-            background-color: #66cc66;
-            cursor: pointer;
+
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Neon green link */
+        a {
+            color: #39ff14;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #00ff00;
         }
     </style>
 </head>
 <body>
-    <h1>Bookmarks</h1>
-    <ul id="bookmark-list">
-        <!-- Bookmarks will be dynamically inserted here -->
-    </ul>
+
+    <!-- Header -->
+    <div class="header">Bookmarks</div>
+
+    <div class="table-container">
+        <table id="bookmarksTable">
+            <!-- Bookmarks will be populated here -->
+        </table>
+    </div>
 
     <script>
-        // Fetch bookmarks from the local bookmarks.json file
-        fetch("bookmarks.json")
-            .then(response => response.json())
-            .then(bookmarks => {
-                const bookmarkList = document.getElementById("bookmark-list");
-                bookmarks.forEach(bookmark => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = bookmark.url;
+        // Function to load bookmarks
+        function loadBookmarks() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "bookmarks.json", true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const bookmarksData = JSON.parse(xhr.responseText);
+                    const table = document.getElementById('bookmarksTable');
+                    
+                    let bookmarks = [];
 
-                    // Open the bookmark in the current tab
-                    listItem.onclick = () => {
-                        window.location.href = bookmark.url; // This will load the bookmark in the same tab
-                    };
+                    // Check if it's in PaulGamerBoy101's format
+                    if (Array.isArray(bookmarksData) && bookmarksData[0].name && bookmarksData[0].url) {
+                        bookmarks = parsePaulGamerBoy101Bookmarks(bookmarksData);
+                    }
+                    // Check if it's in Chrome format
+                    else if (bookmarksData.roots && bookmarksData.roots.bookmark_bar && Array.isArray(bookmarksData.roots.bookmark_bar.children)) {
+                        bookmarks = parseChromeBookmarks(bookmarksData.roots.bookmark_bar.children);
+                    }
+                    // Check if it's in Firefox format
+                    else if (bookmarksData.children && Array.isArray(bookmarksData.children)) {
+                        bookmarks = parseFirefoxBookmarks(bookmarksData.children);
+                    }
+                    // Default case if no known format is detected
+                    else {
+                        table.innerHTML = '<tr><td colspan="2">Unknown bookmarks format.</td></tr>';
+                        return;
+                    }
 
-                    bookmarkList.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error('Error loading bookmarks:', error));
+                    // Populate the table with bookmarks
+                    bookmarks.forEach(bookmark => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = ` 
+                            <td>${bookmark.name}</td>
+                            <td><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></td>
+                        `;
+                        table.appendChild(row);
+                    });
+                } else {
+                    console.error("Error loading bookmarks.json");
+                    const table = document.getElementById('bookmarksTable');
+                    table.innerHTML = '<tr><td colspan="2">Failed to load bookmarks</td></tr>';
+                }
+            };
+            xhr.send();
+        }
+
+        // Parse PaulGamerBoy101's format
+        function parsePaulGamerBoy101Bookmarks(bookmarkArray) {
+            const bookmarks = [];
+            bookmarkArray.forEach(item => {
+                if (item.name && item.url) {
+                    bookmarks.push({ name: item.name, url: item.url });
+                }
+            });
+            return bookmarks;
+        }
+
+        // Parse Chrome bookmarks format
+        function parseChromeBookmarks(bookmarkArray) {
+            const bookmarks = [];
+            bookmarkArray.forEach(item => {
+                if (item.type === 'url' && item.url) {
+                    bookmarks.push({ name: item.name, url: item.url });
+                } else if (item.children) {
+                    bookmarks.push(...parseChromeBookmarks(item.children)); // Recursively parse children
+                }
+            });
+            return bookmarks;
+        }
+
+        // Parse Firefox bookmarks format
+        function parseFirefoxBookmarks(bookmarkArray) {
+            const bookmarks = [];
+            bookmarkArray.forEach(item => {
+                if (item.type === 'bookmark' && item.uri) {
+                    bookmarks.push({ name: item.title, url: item.uri });
+                } else if (item.children) {
+                    bookmarks.push(...parseFirefoxBookmarks(item.children)); // Recursively parse children
+                }
+            });
+            return bookmarks;
+        }
+
+        // Load bookmarks when the page is loaded
+        window.onload = loadBookmarks;
     </script>
 </body>
 </html>
