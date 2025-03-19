@@ -13,7 +13,7 @@
 
 # Important Information
 
-Bookmarks are Partialy Implemented, The Bookmarks Menu Works, But In Order to Bookmark a Page You Have to Manually Edit the bookmarks.json file, as i have been Unsuccessful at Getting the Browser to Do it.
+Bookmarks Are Unable to Be Made Using the Browser, Until I Can Figure that Out You can Use [This Website](https://bookmarks-file-maker-13880131.codehs.me/index.html) to Make a Bookmarks List and Export it.
 
 # Pre-Requisits
 
