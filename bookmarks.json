@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "name": "Amazon",
+        "url": "https://www.amazon.com"
+    },
+    {
+        "name": "Github",
+        "url": "https://www.github.com"
+    },
+    {
+        "name": "Cemetech",
+        "url": "https://www.cemetech.net"
+    }
+]
