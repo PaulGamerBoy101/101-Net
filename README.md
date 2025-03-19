@@ -7,17 +7,18 @@
 
 * First UI
 * Tabs
-* Menu Button
+* Hamburger Menu
 * Navigation
 * Website Rendering
+* Bookmarks (A Manual Feature, See Important Information Section)
+* History
 
 ### Partialy Implemented (See More Info About an Item in this Section by Visiting the Important Information Section)
 
-* Bookmarks
+
 
 ### Not Implemented
 
-* History
 * Settings
 * Customisation
 * More Features
@@ -29,7 +30,7 @@
 
 # Important Information
 
-Bookmarks Are Unable to Be Made Using the Browser, Until I Can Figure that Out You can Use [This Website](https://bookmarks-file-maker-13880131.codehs.me/index.html) to Make a Bookmarks List and Export it. Once You Export it Replace the bookmarks.json file that is in your extracted folder, or you can save the file in place of the original when exporting.
+Bookmarks are Accessed Via a JSON File, that Means that You Have to Manualy Make and/or Edit the JSON File Yourself, or Replace the JSON File with an Exported one. You Can Use [This Website](https://bookmarks-file-maker-13880131.codehs.me/index.html) to Make a Bookmarks List and Export it, or You Can Export Your Bookmarks from Chrome or Firefox. Once You Export it Replace the bookmarks.json file that is in your extracted folder, or you can save the file in place of the original when exporting.
 
 # Pre-Requisits
 
@@ -44,7 +45,7 @@ Bookmarks Are Unable to Be Made Using the Browser, Until I Can Figure that Out Y
 
 ### In Powershell
 
-Enter this:
+Enter this (Without the Quotations):
 
 ``` cd "The Directory to Your Exported Folder" ```
 
