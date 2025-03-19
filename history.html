@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browsing History</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #39ff14;
+        }
+        h1 {
+            text-align: center;
+            color: #39ff14;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #252525;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #39ff14;
+        }
+        li a {
+            color: #39ff14;
+            text-decoration: none;
+        }
+        li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Browsing History</h1>
+        <ul id="history-list">Loading history...</ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("history.json")
+                .then(response => response.json())
+                .then(data => {
+                    const historyList = document.getElementById("history-list");
+                    historyList.innerHTML = ""; // Clear placeholder text
+
+                    // Sort history (newest first)
+                    data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                    if (data.length === 0) {
+                        historyList.innerHTML = "<li>No browsing history found.</li>";
+                        return;
+                    }
+
+                    data.forEach(entry => {
+                        const listItem = document.createElement("li");
+                        const link = document.createElement("a");
+                        link.href = entry.url;
+                        link.textContent = entry.url;
+                        link.target = "_blank";
+
+                        listItem.appendChild(link);
+                        historyList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading history:", error);
+                    document.getElementById("history-list").innerHTML = "<li>Error loading history.</li>";
+                });
+        });
+    </script>
+</body>
+</html>
