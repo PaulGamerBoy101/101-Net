@@ -1,6 +1,6 @@
 # 101-Net
 > 101 Net is a Python Based Browser, It is Still In Development, <b>If You Have Ways to Improve the Function or Code of The Browser, Please Email or Message me on Reddit.</b>
-> Most Features Work When Running it as the Python File, But Many Some Features Stopped Working When Compiled to an EXE.
+> Most Features Work When Running it as the Python File, But the Built in HTML Pages Stopped Working When Compiled to an EXE.
 
 # Features
 
