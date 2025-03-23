@@ -43,7 +43,7 @@ The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab"
 
 
 
-# Pre-Requisits
+# Pre-Requisits (List May Not Always Be Up to Date)
 
 - Python 3.7 or higher
 - PySide6
@@ -55,11 +55,11 @@ The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab"
 
 # Running/Building
 
-### Befor Building
+### Before Building
 
 Download The Source Code From Github, or the Github Releases Page (When I Start Making Releases), or Using Git For Windows.
 
-### In Powershell
+### In Powershell (Or Windows Terminal, or Your Linux Terminal)
 
 Enter this (Without the Quotations):
 
