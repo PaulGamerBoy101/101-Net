@@ -47,12 +47,17 @@ The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab"
 
 - Python 3.7 or higher
 - PySide6
-- Install with: pip install PySide6
 - JSON (part of Python standard library)
 - OS (part of Python standard library)
+- Flask
+- Flask CORS
 
 
 # Running/Building
+
+### Befor Building
+
+Download The Source Code From Github, or the Github Releases Page (When I Start Making Releases), or Using Git For Windows.
 
 ### In Powershell
 
@@ -63,5 +68,14 @@ Enter this (Without the Quotations):
 then this:
 
 ``` py main.py ```
+
+
+# Contributing
+
+Please, Email Me or Message me on WhatsApp, Reddit, or Cemetech, with Any Code Alteratons, Suggestions, or Fixes.
+
+### <ins>If You Want to Join The Project</ins>
+
+I Will Have a Google Form to Fill Out.
 
 
