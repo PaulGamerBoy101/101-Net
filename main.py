@@ -60,6 +60,9 @@ class WebBrowser(QMainWindow):
         # FIX: Connect titleChanged signal to update tab text dynamically
         self.web_view.titleChanged.connect(lambda title: self.update_tab_title(self.web_view, title))
 
+        # Set the launch page to the custom new tab/home page
+        self.web_view.setUrl(QUrl("https://101-net-new-tabhome-page-13986765.codehs.me/"))
+
         self.tabs.addTab(self.web_view, "New Tab")
 
         # Set the main layout inside a central widget
@@ -130,7 +133,7 @@ class WebBrowser(QMainWindow):
         """Navigate to the home page."""
         current_tab = self.tabs.currentWidget()
         if current_tab:
-            current_tab.setUrl(QUrl("https://www.example.com"))
+            current_tab.setUrl(QUrl("https://101-net-new-tabhome-page-13986765.codehs.me/"))
 
     def close_tab(self, index):
         """Close the tab at the given index."""
