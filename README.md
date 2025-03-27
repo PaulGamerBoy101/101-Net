@@ -1,6 +1,18 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6e58e561-d5c3-42af-8134-9272dd054173" alt="Screenshot 2025-03-26 175527" />
 </p>
+<p align="center">
+  <img src="https://img.shields.io/github/commit-activity/m/PaulGamerBoy101/101-Net?color=006400&label=Commits&style=for-the-badge&logoColor=black" alt="Commits" />
+</p>
+
+
+
+
+
+
+
+
+
 
 # 101-Net
 > 101 Net is a Python Based Browser, It is Still In Development, <b>If You Have Ways to Improve the Function or Code of The Browser, Please Email or Message me on Reddit.</b>
