@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6e58e561-d5c3-42af-8134-9272dd054173" alt="Screenshot 2025-03-26 175527" />
+</p>
+
 # 101-Net
 > 101 Net is a Python Based Browser, It is Still In Development, <b>If You Have Ways to Improve the Function or Code of The Browser, Please Email or Message me on Reddit.</b>
 > Most Features Work When Running it as the Python File, But the Built in HTML Pages Stopped Working When Compiled to an EXE.
@@ -22,14 +26,13 @@
 
 ### Not Implemented
 
-* Settings
+* Settings (Has a Non-Functional Page)
 * Customisation
 * More Features
 
 ### Screenshots
 
-![Screenshot 2025-03-07 175945](https://github.com/user-attachments/assets/4ad73979-7953-40dc-927d-c2fdac819202)
-
+![Screenshot 2025-03-26 180424](https://github.com/user-attachments/assets/b9a9dd48-afdb-4bca-a5e8-4391a22278ff)
 
 # Important Information
 
@@ -39,7 +42,7 @@ Bookmarks are Accessed Via a JSON File, that Means that You Have to Manualy Make
 
 <b>Tabs:</b>
 
-The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab" Unless it is a Built in Page.
+~~The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab" Unless it is a Built in Page.~~ This Issue Is Fixed in The Latest Code Update!
 
 
 
