@@ -4,6 +4,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/commit-activity/m/PaulGamerBoy101/101-Net?color=006400&label=Commits&style=for-the-badge&logoColor=black" alt="Commits" />
   <img src="https://img.shields.io/github/v/release/PaulGamerBoy101/101-Net?color=006400&label=Latest-Release&style=for-the-badge&logoColor=black" alt="Releases" />
+  <img src="https://img.shields.io/github/downloads/PaulGamerBoy101/101-Net/total?color=006400&style=for-the-badge" alt="Downloads" />
 </p>
 
 
