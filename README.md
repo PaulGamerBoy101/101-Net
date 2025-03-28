@@ -88,6 +88,7 @@ Please, Email Me or Message me on WhatsApp, Reddit, or Cemetech, with Any Code A
 
 ### <ins>If You Want to Join The Project</ins>
 
-I Will Have a Google Form to Fill Out.
+Fill Out This Google Form:
 
+[Join The Project - Google Form](https://forms.gle/tVg8epThjGUF7cNGA)
 
