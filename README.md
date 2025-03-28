@@ -6,23 +6,15 @@
 </p>
 
 
-
-
-
-
-
-
-
-
 # 101-Net
 > 101 Net is a Python Based Browser, It is Still In Development, <b>If You Have Ways to Improve the Function or Code of The Browser, Please Email or Message me on Reddit.</b>
-> Most Features Work When Running it as the Python File, But the Built in HTML Pages Stopped Working When Compiled to an EXE.
+> Most Features Work When Running it as the Python File, ⚠️But When Downloading the ZIP From the Releases, The bookmarks.json file, must Be Manually Put into the DIST Folder With the EXE (or your the File Your OS Uses instead of EXE Files) File that is Already in it. (Though Some Windows Releases May Already Have it In the Folder)⚠️
 
 # Features
 
 ### Implemented
 
-* First UI
+* UI 1 (UI May Be Updated or Changed Entirely In Newer Editions)
 * Tabs
 * Hamburger Menu
 * Navigation
@@ -50,6 +42,8 @@
 
 <b>Bookmarks:</b>
 
+⚠️When Downloading the ZIP From the Releases, The bookmarks.json file, must Be Manually Put into the DIST Folder With the EXE File that is Already in it.⚠️
+
 Bookmarks are Accessed Via a JSON File, that Means that You Have to Manualy Make and/or Edit the JSON File Yourself, or Replace the JSON File with an Exported one. You Can Use [This Website](https://bookmarks-file-maker-13880131.codehs.me/index.html) to Make a Bookmarks List and Export it, or You Can Export Your Bookmarks from Chrome or Firefox. Once You Export it Replace the bookmarks.json file that is in your extracted folder, or you can save the file in place of the original when exporting.
 
 <b>Tabs:</b>
@@ -68,7 +62,7 @@ Bookmarks are Accessed Via a JSON File, that Means that You Have to Manualy Make
 - Flask CORS
 
 
-# Running/Building
+# Running/Building From Source
 
 ### Before Building
 
