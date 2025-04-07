@@ -51,7 +51,7 @@ Bookmarks are Accessed Via a JSON File, that Means that You Have to Manualy Make
 
 <b>Tabs:</b>
 
-~~The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab" Unless it is a Built in Page.~~ This Issue Was Fixed in Version 1.1.0 But Seems to be Back in 1.2.0!
+~~The Titles on the Tabs Do not Work at the Moment, so All Tabs Will Say "New Tab" Unless it is a Built in Page.~~ This Issue Was Fixed in Version 1.1.0 But Seems to Be a Recurring Bug!
 
 
 
