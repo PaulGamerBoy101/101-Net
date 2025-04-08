@@ -2,7 +2,14 @@
 from PySide6.QtWebEngineWidgets import QWebEngineView
 import os
 import json
-from datetime import datetime  # Added missing import
+from datetime import datetime
+import sys
+
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and PyInstaller."""
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def show_menu(self):
     """Show the hamburger menu when clicked."""
@@ -176,3 +183,123 @@ def open_history_page(self):
     history_page.setHtml(history_html)
     self.tabs.addTab(history_page, "History")
     self.tabs.setCurrentWidget(history_page)
+
+def open_settings_page(self):
+    """Open the settings page with version info and update check as embedded HTML."""
+    settings_page = QWebEngineView()
+
+    # Define the current version (hardcoded for now)
+    CURRENT_VERSION = "1.3.0"  # Matches your latest tag without "Version-" prefix
+
+    # HTML content with embedded CSS and JS
+    settings_html = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Settings</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #121212;
+                color: #e0e0e0;
+                margin: 0;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                flex-direction: column;
+            }}
+            .header {{
+                background-color: #1e1e1e;
+                color: #39ff14;
+                padding: 15px;
+                width: 100%;
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                border-bottom: 3px solid #39ff14;
+            }}
+            .content {{
+                margin-top: 20px;
+                font-size: 18px;
+                text-align: center;
+            }}
+            button {{
+                background-color: #39ff14;
+                color: black;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+            }}
+            button:hover {{
+                background-color: #1a8000;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">Settings</div>
+        <div class="content">
+            <p>Browser Version: {CURRENT_VERSION}</p>
+            <button id="checkUpdate">Check for Update</button>
+            <p id="updateStatus"></p>
+        </div>
+        <script>
+            document.getElementById("checkUpdate").addEventListener("click", function() {{
+                checkForUpdate();
+            }});
+
+            function checkForUpdate() {{
+                const currentVersion = "{CURRENT_VERSION}";
+                const repo = "PaulGamerBoy101/101-Net";
+                fetch(`https://api.github.com/repos/${{repo}}/releases/latest`)
+                    .then(response => {{
+                        if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
+                        return response.json();
+                    }})
+                    .then(data => {{
+                        const latestTag = data.tag_name;  // e.g., "Version-1.2.1"
+                        const latestVersion = latestTag.replace("Version-", "");  // e.g., "1.2.1"
+                        const versionComparison = compareVersions(latestVersion, currentVersion);
+                        let statusMessage;
+                        if (versionComparison > 0) {{
+                            statusMessage = `A new version (${{latestVersion}}) is available! Visit GitHub to download.`;
+                        }} else if (versionComparison === 0) {{
+                            statusMessage = "You are on the latest version.";
+                        }} else {{
+                            statusMessage = "It Looks Like You Are Using A Nightly Build.";
+                        }}
+                        document.getElementById("updateStatus").innerText = statusMessage;
+                    }})
+                    .catch(error => {{
+                        document.getElementById("updateStatus").innerText = 
+                            `Failed to check for updates: ${{error.message}}`;
+                    }});
+            }}
+
+            function compareVersions(v1, v2) {{
+                const parts1 = v1.split('.').map(Number);
+                const parts2 = v2.split('.').map(Number);
+                for (let i = 0; i < 3; i++) {{
+                    const n1 = parts1[i] || 0;
+                    const n2 = parts2[i] || 0;
+                    if (n1 > n2) return 1;
+                    if (n1 < n2) return -1;
+                }}
+                return 0;
+            }}
+        </script>
+    </body>
+    </html>
+    """
+
+    # Set the HTML content
+    settings_page.setHtml(settings_html)
+
+    # Add the settings page to the tabs
+    self.tabs.addTab(settings_page, "Settings")
+    self.tabs.setCurrentWidget(settings_page)
