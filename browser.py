@@ -3,12 +3,12 @@ import json
 import os
 from datetime import datetime
 from PySide6.QtCore import Qt, QUrl
-from PySide6.QtGui import QAction, QIcon
+from PySide6.QtGui import QAction, QIcon, QPixmap, QImage
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QLineEdit, QPushButton, QTabWidget, QMenu
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from navigation import load_url, go_back, go_forward, go_home
 from tabs import close_tab, add_new_tab, update_tab_title
-from menu import show_menu, open_bookmarks_page, open_history_page
+from menu import show_menu, open_bookmarks_page, open_history_page, open_settings_page
 from history import track_history, load_history
 import sys
 
@@ -63,7 +63,7 @@ class WebBrowser(QMainWindow):
         # Create tab widget for managing multiple tabs
         self.tabs = QTabWidget()
         self.tabs.setTabsClosable(True)
-        self.tabs.tabCloseRequested.connect(self.close_tab)  # Handle tab closing
+        self.tabs.tabCloseRequested.connect(self.close_tab)
         main_layout.addWidget(self.tabs)
 
         # Web content area (first tab)
@@ -87,27 +87,39 @@ class WebBrowser(QMainWindow):
         self.history_action = QAction("History", self)
         self.history_action.setIcon(QIcon(resource_path("history.svg")))
         self.history_action.setIconVisibleInMenu(True)
+        self.settings_action = QAction("Settings", self)
+
+        # Invert the settings icon
+        settings_icon = QIcon(resource_path("settings.svg"))
+        settings_pixmap = settings_icon.pixmap(32, 32)  # Adjust size as needed
+        settings_image = settings_pixmap.toImage()
+        settings_image.invertPixels()  # Invert the colors
+        inverted_settings_icon = QIcon(QPixmap.fromImage(settings_image))
+        self.settings_action.setIcon(inverted_settings_icon)
+        self.settings_action.setIconVisibleInMenu(True)
 
         # Connect menu actions
         self.bookmark_action.triggered.connect(self.open_bookmarks_page)
         self.history_action.triggered.connect(self.open_history_page)
+        self.settings_action.triggered.connect(self.open_settings_page)
 
         # Add actions to the menu
         self.menu.addAction(self.bookmark_action)
         self.menu.addAction(self.history_action)
+        self.menu.addAction(self.settings_action)
         self.hamburger_button.clicked.connect(self.show_menu)
 
         # Apply styles to buttons and UI elements
         self.setStyleSheet("""
             QPushButton {
                 background-color: #39ff14;
-                color: black;  /* Explicitly set icon/text color */
+                color: black;
                 border-radius: 15px;
                 padding: 10px;
                 font-size: 14px;
             }
             QPushButton:hover {
-                background-color: #1a8000;  /* Much darker green for hover */
+                background-color: #1a8000;
             }
             QLineEdit {
                 background-color: white;
@@ -134,3 +146,4 @@ class WebBrowser(QMainWindow):
     track_history = track_history
     load_history = load_history
     update_tab_title = update_tab_title
+    open_settings_page = open_settings_page
