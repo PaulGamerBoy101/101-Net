@@ -69,15 +69,25 @@ Bookmarks are Accessed Via a JSON File, that Means that You Have to Manualy Make
 
 Download The Source Code From Github, or the Github Releases Page (When I Start Making Releases), or Using Git For Windows.
 
-### In Powershell (Or Windows Terminal, or Your Linux Terminal)
+### In Powershell (Or Windows Terminal)
 
 Enter this (Without the Quotations):
 
 ``` cd "The Directory to Your Exported Folder" ```
 
-then this:
+then this :
 
 ``` py main.py ```
+
+### In Linux Terminal
+
+Enter this (Without the Quotations):
+
+``` cd "The Directory to Your Exported Folder" ```
+
+then this :
+
+``` python main.py ```
 
 
 # Contributing
